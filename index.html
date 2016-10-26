@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        body {
+            margin: 0 auto;
+            padding: 0px;
+            font-size: 12px;
+            background: url(image/bg.gif) repeat center 36px;
+            text-align: center;
+            background-color: #c30230;
+        }
+        #content {
+            margin: 0 auto;
+            width: 960px;
+            background: url(image/content_bg.jpg) no-repeat left top;
+            height: 627px;
+            position: relative;
+        }
+
+        #content .tip1, #content .tip2, #content .tip3, #content .tip4, #content .tip5, #content .tip6, #content .tip7, #content .tip8 {
+            position: absolute;
+            width: 227px;
+            left: 200px;
+            top: 100px;
+        }
+
+        #content .tip1 .tip_h {
+            background: url(image/tip1_h.gif) no-repeat left top;
+        }
+
+        #content .tip1 .tip_h, #content .tip2 .tip_h, #content .tip3 .tip_h, #content .tip4 .tip_h, #content .tip5 .tip_h, #content .tip6 .tip_h, #content .tip7 .tip_h, #content .tip8 .tip_h {
+            width: 227px;
+            padding-top: 45px;
+            height: 23px;
+            text-align: left;
+            cursor: move;
+        }
+        #content .tip1 .tip_c {
+            background: url(image/tip1_c.gif) repeat-y;
+        }
+
+        #content .tip1 .tip_c, #content .tip2 .tip_c, #content .tip3 .tip_c, #content .tip4 .tip_c, #content .tip5 .tip_c, #content .tip6 .tip_c, #content .tip7 .tip_c, #content .tip8 .tip_c {
+            width: 200px;
+            padding-left: 12px;
+            padding-right: 15px;
+            min-height: 40px;
+            text-align: left;
+            line-height: 20px;
+            max-height: 160px;
+            word-wrap: break-word;
+            word-break: break-all;
+            overflow: hidden;
+        }
+
+        #content .tip1 .tip_f {
+            background: url(image/tip1_f.gif) no-repeat left top;
+        }
+
+        #content .tip1 .tip_f, #content .tip2 .tip_f, #content .tip3 .tip_f, #content .tip4 .tip_f, #content .tip5 .tip_f, #content .tip6 .tip_f, #content .tip7 .tip_f, #content .tip8 .tip_f {
+            width: 227px;
+            height: 53px;
+            padding-top: 20px;
+        }
+        #content .close, #content .close2 {
+            float: left;
+            font-size: 12px;
+            cursor: pointer;
+            color: #000000;
+        }
+        .clr {
+            clear: both;
+            overflow: auto;
+            display: block;
+            height: 0px;
+        }
+        #content .icon {
+            float: left;
+            width: 35px;
+            padding-left: 15px;
+            height: 35px;
+            text-align: center;
+        }
+        #content .name {
+            float: right;
+            padding-right: 15px;
+            text-align: right;
+            font-size: 14px;
+            line-height: 35px;
+            color: #C0F;
+        }
+        #content .num {
+            float: left;
+            padding-left: 7px;
+            width: 195px;
+        }
+    </style>
+</head>
+<body>
+<div id="content">
+    <div class="tip1" id="tip" >
+        <div class="tip_h" title="双击关闭纸条">
+            <div class="num">第[49568]条 2016-07-7 22:51:52</div>
+            <div class="close" title="关闭纸条" >×</div>
+            <div class="clr"></div>
+        </div>
+        <div class="tip_c">
+            普天同庆，天下大同！
+        </div>
+        <div class="tip_f">
+            <div class="icon">
+                <img src="image/bpic_1.gif" alt="" title="">
+            </div>
+            <div class="name">不愿意透露姓名的吕先生</div>
+            <div class="clr"></div>
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+    //需求：复制生成小纸条，点击谁，把他的层级提到最高！
+    //步骤：
+        //1.获取小纸条复制小纸条，把小纸条放进content中。(获取两个值，任意值！)
+        //2.为每一个小纸条绑定事件，onclick点击谁，谁的层级最高。
+    //1.获取事件源
+    //2.绑定事件
+    //3.书写事件驱动程序
+
+
+
+        //1.获取小纸条复制小纸条，把小纸条放进content中。
+        //2.为每一个小纸条绑定事件，onclick点击谁，谁的层级最高。
+    //1.获取事件源
+    var content = document.getElementById("content");
+    var tip = document.getElementById("tip");
+    //计数器（提高tip的层级用的，每点击一次，自动增加1）
+    var count = 1;
+
+    //生成12个小纸条
+    for(var i=0;i<12;i++){
+        //1.获取小纸条复制小纸条，把小纸条放进content中。
+        var newTip = tip.cloneNode(true);
+        //修改ID否则报错
+        newTip.id += i+1;
+        //(获取两个值，任意值！)设置top和left值！
+        var topValue = parseInt(Math.random()*400);
+        var left = parseInt(Math.random()*700);
+
+        newTip.style.top = topValue+"px";
+        newTip.style.left = left+"px";
+
+        //把生成的tip放入content中
+        content.appendChild(newTip);
+
+        //给每一个tip绑定事件
+        newTip.onclick = fn;
+    }
+
+//    tip.style.top = parseInt(Math.random()*400)+"px";
+//    tip.style.left = parseInt(Math.random()*700)+"px";
+
+    //2.绑定事件
+    tip.onclick = fn;
+
+    //3.书写事件驱动程序
+    function fn() {
+        //必须用this，因为每次有生成的tip都叫newTip，最后一个就层叠掉了前面的newTip
+        this.style.zIndex = count;
+        console.log(count);
+        count++;
+    }
+</script>
+
+
+
+</body>
+</html>
